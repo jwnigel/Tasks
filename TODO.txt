@@ -1,0 +1,21 @@
+Table name: Tasks
+Columns: id, GroupName, FileName, DateCreated, DateUpdated, SecondsToComplete, Title, Description, TaskNum
+
+
+[x] Add folder to php_code and read in files from folder.
+
+[x] Read filename from folder (in php):
+	
+[ ] Match existing entries:
+ 	[x] ex: if ( $array["FileName"] ) { it exists... }
+	[ ] else { Suggest inserting... }
+
+[x] Be able to update entries: 
+    [x] Entries are updating in database but not on Tasks screen.
+
+[ ] If filename isn't found in the directory, but exists in db....
+
+[ ] Vice versa--if file isn't found in the db but is in the directory.
+
+
+

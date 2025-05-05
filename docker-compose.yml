@@ -1,0 +1,33 @@
+services:
+    nginx:
+      build: ./nginx/
+      container_name: nginx-container-a
+      ports:
+       - 80:80
+      volumes:
+        - ./php_code/:/var/www/html
+
+    php:
+      build: ./php_code/
+      container_name: php-container-a
+      expose:
+        - 9000
+      volumes:
+          - ./php_code/:/var/www/html/
+
+    db:    
+      image: mariadb  
+      container_name: db-container-a
+      ports:
+       - 3306:3306
+      volumes: 
+        -    mysql-data:/var/lib/mysql
+      environment:  
+       MYSQL_ROOT_PASSWORD: passw0rd
+       MYSQL_DATABASE: sample_d
+       MYSQL_USER: nigel
+       MYSQL_PASSWORD: passw0rd
+
+
+volumes:
+    mysql-data:
