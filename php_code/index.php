@@ -29,33 +29,23 @@ $link = mysqli_connect('db', 'nigel', 'passw0rd', 'sample_d');  // (host (name i
     
 
         if (isset($_POST['submit']) && $_POST['submit']=="SaveTask") {
-
+            // if 'id' == 'new' then $sql = INSERT INTO Tasks..., $message = '<div class="alert alert-success" role="alert">✅ New task "' . $_POST['title'] . '" added.</div>';
+            // else $sql = UPDATE Tasks SET ...
+            
             if ($_POST['id']=='new'){
-                $insert_sql = "INSERT INTO Tasks (Title, SecondsToComplete, Description, GroupName, FileName) VALUES (?, ?, ?, ?, ?)";
-                $insert_stmt = mysqli_prepare($link, $insert_sql);
-                mysqli_stmt_bind_param(
-                    $insert_stmt,
-                    'sisss',
-                    $_POST['title'],
-                    $_POST['secondsToComplete'],
-                    $_POST['description'],
-                    $_POST['groupName'],
-                    $_POST['fileName']
-                );
-                mysqli_stmt_execute($insert_stmt);
-                mysqli_stmt_close($insert_stmt);
-        
-                print '<div class="alert alert-success" role="alert">✅ New task "' . $_POST['title'] . '" added.</div>';
+                $sql = 'INSERT INTO Tasks....';
+                $message = '<div class="alert alert-success" role="alert">✅ New task "' . $_POST['title'] . '" added.</div>';
             } else {
-                $update_query = "UPDATE Tasks SET Title = ?, SecondsToComplete = ?, Description = ?, GroupName = ?, FileName = ? WHERE id = ?";
-                $update_statement = mysqli_prepare($link, $update_query);
-                mysqli_stmt_bind_param($update_statement, 'sisssi', $_POST['title'], $_POST['secondsToComplete'], $_POST['description'], $_POST['groupName'], $_POST['fileName'], $_POST['id']);
-                mysqli_stmt_execute($update_statement);
-                mysqli_stmt_close($update_statement);
-                print '<div class="alert alert-success" role="alert">Record #'.$_POST['title'].' updated</div>';
-            }
-
-        }
+                $sql = 'UPDATE Tasks SET...';
+                $message = '<div class="alert alert-success" role="alert">Record #'.$_POST['title'].' updated</div>';
+                    }
+            
+            $stmt = mysqli_prepare($link, $sql);
+            mysqli_stmt_bind_param($stmt, 'sisssi', $_POST['title'], $_POST['secondsToComplete'], $_POST['description'], $_POST['groupName'], $_POST['fileName'], $_POST['id']);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            $message;
+            
 
         if (isset($_GET['id'])) {
            
