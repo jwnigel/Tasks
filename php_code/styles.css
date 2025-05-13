@@ -1,0 +1,89 @@
+body {
+    margin-top: 50px;
+    align-items: center;
+}
+
+.main-container {
+    max-width: 1400px;
+    line-height: 2.0;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.edit-form {
+    padding: 50px;
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+.task-row {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.task-row label {
+    width: 150px;
+    padding-top: 0px;
+    text-align: right;
+}
+
+.task-row input, 
+.task-row textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.task-row input:focus,
+.task-row textarea:focus {
+  outline: none;
+  border-color: blue;
+}
+
+.task-submit-btn {
+    margin-top: 25px;
+    padding-left: 158px; 
+    display: flex;
+    gap: 10px;
+}
+
+
+button[type="submit"] {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+  
+button[type="submit"]:hover {
+background-color: #357abd;
+}
+
+.task-submit-btn a {
+display: inline-block;
+padding: 10px 40px;
+color: #666;
+text-decoration: none;
+border-radius: 4px;
+border: 1px solid #ccc;
+transition: all 0.2s;
+}
+
+.task-submit-btn a:hover {
+background-color: #f1f1f1;
+}

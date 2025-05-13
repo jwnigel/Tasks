@@ -8,13 +8,14 @@ function parseTaskFile($contents) {
     return [
         'id' => $data[0],
         'GroupName' => $data[1],
-        'FileName' => $data[2],
+        'FileName' => "",
         'DateCreated' => $data[3],
         'DateUpdated' => $data[4],
         'SecondsToComplete' => $data[5],
         'Title' => $data[6],
         'Description' => $data[7],
-        'TaskNum' => $data[8]    
+        'TaskNum' => $data[8],
+        'Exists' => 0,    
     ] ;
 }
 ?>
