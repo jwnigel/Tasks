@@ -28,7 +28,9 @@ $fileNotInDB=$files;
 </head>
 <body>
     <div class="main-container">
-        <?   
+        <a href="zone.php">Zones</a>
+        <?php
+
         if (isset($_POST['submit']) && $_POST['submit']=="SaveTask") {
 
             if ($_POST['TaskID']=='new'){
@@ -182,7 +184,7 @@ $fileNotInDB=$files;
         <h1>Tasks</h1>
         <?php 
             if ($link) {
-                $result = mysqli_query($link, "SELECT * FROM WorkTasks");
+                $result = mysqli_query($link, "SELECT * FROM WorkTask");
                 $count = mysqli_num_rows($result);
                 echo "<h3>✅ Successfully connected to database! Current entries: $count </h2>";
 
@@ -213,7 +215,7 @@ $fileNotInDB=$files;
 
                 <tbody>
                     <?php 
-                    $table_result = mysqli_query($link, "SELECT * FROM WorkTasks ORDER BY TaskID");
+                    $table_result = mysqli_query($link, "SELECT * FROM WorkTask ORDER BY TaskID");
                     while ($task_data = mysqli_fetch_assoc($table_result)): //green and red rows
                         ?>
                         <tr class="<?=in_array($task_data['FileName'],$files) ? 'table-success' : 'table-danger'?> clickable-row"
