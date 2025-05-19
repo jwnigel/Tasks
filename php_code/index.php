@@ -29,6 +29,12 @@ $fileNotInDB=$files;
 <body>
     <div class="main-container">
         <a href="zone.php">Zones</a>
+        <br>
+        <a href="config.php">Configurations</a>
+        <br>
+        <a href="zonetask.php">ZoneTasks</a>
+        <br>
+
         <?php
 
         if (isset($_POST['submit']) && $_POST['submit']=="SaveTask") {
