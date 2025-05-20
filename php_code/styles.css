@@ -4,7 +4,6 @@ body {
 }
 
 .main-container {
-    max-width: 1400px;
     line-height: 2.0;
     margin: 0 auto;
     padding: 20px;
@@ -23,6 +22,8 @@ label {
     font-weight: 600;
     padding-right: 10px;
 }
+
+
 
 .task-row {
     margin-bottom: 15px;

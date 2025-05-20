@@ -2,6 +2,13 @@
 <?php include 'task_file_parser.php';
 include "global.php";
 
+function formatTime($seconds) {
+    $minutes = floor($seconds / 60);
+    $remainingSeconds = $seconds % 60;
+    
+    return sprintf("%02d:%02d", $minutes, $remainingSeconds);
+}
+
 
 // $link = mysqli_connect('db', 'nigel', 'passw0rd', 'sample_d');  // (host (name in docker), username, password, database name)
 $task_folder = './all_tasks/' ; 
@@ -69,7 +76,7 @@ $fileNotInDB=$files;
 
         if (isset($_GET['TaskID']) && $_GET['TaskID']!='new') {
 
-            $id_check_query =  "SELECT * FROM WorkTasks WHERE TaskID = ?";
+            $id_check_query =  "SELECT * FROM WorkTask WHERE TaskID = ?";
             $id_check_statement = mysqli_prepare($link, $id_check_query);
             mysqli_stmt_bind_param($id_check_statement, "i", $_GET['TaskID']);
             mysqli_stmt_execute($id_check_statement);
@@ -210,12 +217,12 @@ $fileNotInDB=$files;
                 <thead>
                     <tr>
                         <th>TaskID</th>
-                        <th scope="col">Station #</th>
+                        <!-- <th scope="col">Station #</th> -->
                         <th>File Name</th>
                         <th>Title</th>
+                        <th>Time</th>
                         <th>Date Updated</th>
-                        <th>Task #</th>
-                        <th>Time (sec)</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
@@ -224,16 +231,15 @@ $fileNotInDB=$files;
                     $table_result = mysqli_query($link, "SELECT * FROM WorkTask ORDER BY TaskID");
                     while ($task_data = mysqli_fetch_assoc($table_result)): //green and red rows
                         ?>
-                        <tr class="<?=in_array($task_data['FileName'],$files) ? 'table-success' : 'table-danger'?> clickable-row"
+                        <tr class="<?=in_array($task_data['FileName'],$files) ? 'table-success' : 'table-success' // change this back to table-danger when file validation added?> clickable-row" 
                             style="cursor: pointer;"
                             onclick="window.location='?TaskID=<?=$task_data['TaskID']?>'">
                             <td><?php echo $task_data['TaskID']; ?></td>
-                            <td onclick="event.stopPropagation(); window.location='station.php?station_id=<?=$task_data['Station']?>'"><?php echo $task_data['Station']; ?></td>
+                            <!-- <td onclick="event.stopPropagation(); window.location='station.php?station_id=<?=$task_data['Station']?>'"><?php echo $task_data['Station']; ?></td> -->
                             <td><?php echo $task_data['FileName']; ?></td>
                             <td><?php echo $task_data['Title']; ?></td>
-                            <td><?php echo $task_data['DateUpdated']; ?></td>
-                            <td><?php echo $task_data['Order']; ?></td>
-                            <td><?php echo $task_data['RoutedTime']; ?></td>
+                            <td><?php echo formatTime($task_data['RoutedTime']); ?></td>
+                            <td><?php echo $task_data['DateUpdated']; ?></td>                            
                             <?php if (!in_array($task_data['FileName'],$files)) {
                                
                                 ?><td><a href="?TaskID=<?=$task_data['TaskID']?>&delete=t">Delete Fileless entry</a></td>
@@ -252,7 +258,7 @@ $fileNotInDB=$files;
                        
                     endwhile;
 
-                    foreach($fileNotInDB as $missingFile): ?>
+                    foreach($fileNotInDB as $missingFile): // yellow rows ?> 
                         <tr class="table-warning clickable-row"
                             style="cursor: pointer;"
                             onclick="window.location='?TaskID=<?=$task_data['TaskID']?>'">
